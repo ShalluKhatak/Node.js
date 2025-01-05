@@ -1,0 +1,15 @@
+{
+  "name": "npm_packages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.4.1"
+  }
+}
