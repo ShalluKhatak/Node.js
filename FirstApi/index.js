@@ -12,7 +12,7 @@ const osData={
 const server = http.createServer((req,res)=>{
     try {
         if(req.url==="/"){
-            res.end("Welcome Home!!");
+            res.end("Welcome To Home Page!!");
         }else if(req.url==="/info"){
             res.end(JSON.stringify(osData));
         }else{
