@@ -4,7 +4,9 @@ import fs from "fs";
 
 const port = 4000;
 const current_path= process.cwd();
+const all_files=[`data_one.txt`,`data_two.txt`,`data_three.txt`];
 const accepted_route=['/get-first','/retrieve-second','/fetch-third','/combine','/all-data'];
+
 
 const createFile=(file='testfile')=>{
     try {
@@ -21,6 +23,7 @@ const createFile=(file='testfile')=>{
         console.log('error', error);
     }
 }
+
 
 const readFileData = (file) => {
     try {
@@ -41,23 +44,26 @@ const readFileData = (file) => {
      }
 }
 
-const all_files=[`data_one.txt`,`data_two.txt`,`data_three.txt`]
 
 const combineAllFilesData=()=>{
-     let read_file='';
-    for(let i=0;i<all_files.length;i++){
-          read_file=path.join(current_path,all_files[i]);
-         const data = fs.readFileSync(read_file , 'utf8');
-         fs.appendFile(`combine.txt`, data + '\n', (err) => {
-      if (err) {
-        console.error(`Error appending ${read_file} to ${`combine.txt`}:`, err);
-        return;
-      }
-      console.log(`${read_file} has been appended to ${`combine.txt`}`);
-    });
+    try {
+        let read_file='';
+        for(let i=0;i<all_files.length;i++){
+                read_file=path.join(current_path,all_files[i]);
+                const data = fs.readFileSync(read_file , 'utf8');
+                fs.appendFile(`combine.txt`, data + '\n', (err) => {
+            if (err) {
+            console.error(`Error appending ${read_file} to ${`combine.txt`}:`, err);
+            return;
+            }
+            console.log(`${read_file} has been appended to ${`combine.txt`}`);
+        });
+        }
+    } catch (error) {
+        console.log('error', error);
     }
- 
 }
+
 
 
 const server = http.createServer((req,res)=>{
@@ -70,14 +76,16 @@ const server = http.createServer((req,res)=>{
                     combineAllFilesData();
                     const combine_data = fs.readFileSync(`combine.txt` , 'utf8');
                     res.end(combine_data);
+                    fs.writeFile('combine.txt', '', function(){console.log('done')});
                     
                 }else if(req.url==='/all-data'){
                     combineAllFilesData();
                     let  combine_data = fs.readFileSync(`combine.txt` , 'utf8');
-                    combine_data=combine_data.split('');
-                    combine_data=combine_data.reverse('');
-                    combine_data=combine_data.join('');
+                    combine_data=combine_data.split('\n');
+                    combine_data=combine_data.reverse();
+                    combine_data=combine_data.join('\n');
                     res.end(combine_data);
+                    fs.writeFile('combine.txt', '', function(){console.log('done')});
                 }else{
               const read_data=  readFileData(req.url);
               res.end(read_data);
