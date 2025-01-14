@@ -93,10 +93,10 @@ const server = http.createServer((req,res)=>{
             }else if(req.url.includes("create")){
                 createFile(req.url);
             }else{
-                res.end("Page not found.")
+                res.end("Invalid route. Try /get-first, /retrieve-second, /fetch-third, /combine, or /all-data")
             }
         }else{
-            res.end("Invalid route. Try /get-first, /retrieve-second, /fetch-third, /combine, or /all-data")
+            res.end("Page not found.")
         }
     } catch (error) {
         console.log('error', error);
