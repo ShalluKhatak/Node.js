@@ -1,6 +1,6 @@
 // const express = require('express')
-import {BodyFunction} from "./Auth.js";
-import express from "express";
+import { BodyFunction } from './Auth.js';
+import express from 'express';
 const app = express();
 const port = 3000;
 
@@ -17,20 +17,14 @@ const port = 3000;
 //   console.log('test 3');
 // });
 
-
-app.get('/',BodyFunction, (req, res) => {
-  const var_test=req.result;
+app.get('/', BodyFunction, (req, res) => {
+  const var_test = req.result;
   res.send(var_test);
-  console.log('`hello` :>> ', `hello`);
-
-})
+});
 
 app.get('/about', (req, res) => {
   res.send('This is all about me!');
-  console.log('object :>> ', `object`);
-})
-console.log('************************* :>> ' );
+});
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-      
+  console.log(`Example app listening on port ${port}`);
+});
