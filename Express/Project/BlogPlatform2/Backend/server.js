@@ -82,6 +82,13 @@ app.get('/delete/:id', async (req, res) => {
   res.json({ message: 'Post deleted successfully' });
 });
 
+app.post('/addpost', async (req, res) => {
+  const post_data = req.body;
+  let posts = await readData();
+  posts.push(post_data);
+  await writeData(posts);
+  res.json({ message: 'Post Added successfully' });
+});
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
