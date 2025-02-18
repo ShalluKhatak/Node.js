@@ -1,36 +1,88 @@
 import express from 'express';
 import cors from 'cors';
-import fs from 'fs';
+import fs from 'fs/promises';
 
-const data = fs.readFileSync('posts.json', 'utf8');
 const app = express();
 const port = 3000;
+const DATA_FILE = 'posts.json';
 
 app.use(cors());
-app.get('/', (req, res) => {
-  res.json(data);
-});
+app.use(express.json()); // Middleware to parse JSON requests
 
-app.get('/getpost', (req, res) => {
-  res.json(JSON.parse(data));
-});
-
-app.get('/getpost/post/:id', (req, res) => {
-  let id = '';
-  if (!!req.params) {
-    id = req.params?.id;
+// Function to read posts.json
+const readData = async () => {
+  try {
+    const data = await fs.readFile(DATA_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading data:', error);
+    return [];
   }
-  res.json(JSON.parse(data).filter((item) => item?.id == id));
-});
+};
 
-app.get('/edit/:id', (req, res) => {
-  let id = '';
-  if (!!req.params) {
-    id = req.params?.id;
+// Function to write posts.json
+const writeData = async (data) => {
+  try {
+    await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2), 'utf8');
+  } catch (error) {
+    console.error('Error writing data:', error);
   }
-  res.json(JSON.parse(data).filter((item) => item?.id == id));
+};
+
+// Fetch all posts
+app.get('/getpost', async (req, res) => {
+  const posts = await readData();
+  res.json(posts);
 });
 
+// Fetch a specific post by ID
+app.get('/getpost/post/:id', async (req, res) => {
+  const posts = await readData();
+  const post = posts.find((item) => item.id == req.params.id);
+  res.json(post ? [post] : []);
+});
+
+// Fetch a post for editing (same as above, just renamed for clarity)
+app.get('/edit/:id', async (req, res) => {
+  const posts = await readData();
+  const post = posts.find((item) => item.id == req.params.id);
+  res.json(post ? [post] : []);
+});
+
+app.post('/update/:id', async (req, res) => {
+  const post_update = req.body;
+  let posts = await readData();
+  const newPosts = posts.map((item) => {
+    if (item.id == post_update.id) {
+      let new_post_data = {};
+      new_post_data = {
+        ...item,
+        title: post_update?.title,
+        author: post_update?.author,
+        content: post_update?.content,
+      };
+      return new_post_data;
+    } else {
+      return item;
+    }
+  });
+  await writeData(newPosts);
+  res.json({ message: 'Post Update successfully' });
+});
+// Delete a post by ID
+app.get('/delete/:id', async (req, res) => {
+  let posts = await readData();
+  const newPosts = posts.filter((item) => item.id != req.params.id);
+
+  if (newPosts.length === posts.length) {
+    return res.status(404).json({ message: 'Post not found' });
+  }
+
+  await writeData(newPosts);
+  res.json({ message: 'Post deleted successfully' });
+});
+
+// Start the server
 app.listen(port, () => {
-  console.log('Server is running on: ', port);
+  console.log(`Server is running on port ${port}`);
 });

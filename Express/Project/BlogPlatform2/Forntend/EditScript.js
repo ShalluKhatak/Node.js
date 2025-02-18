@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const post_details = `<label for="title">Title:</label>
         <input
           type="text"
-          id="title"
+          id="p_title"
           name="title"
           value="${post?.title}"
           required
@@ -23,24 +23,53 @@ document.addEventListener('DOMContentLoaded', () => {
         <label for="author">Author:</label>
         <input
           type="text"
-          id="author"
+          id="p_author"
           name="author"
           value="${post?.author}"
           required
         />
 
         <label for="content">Content:</label>
-        <textarea id="content" name="content" rows="10" required>
+        <textarea id="p_content" name="content" rows="10" required>
 ${post?.content}</textarea
         >
 
-        <button type="submit">Update Post</button>`;
+        <button type="submit" id="update_post">Update Post</button>`;
 
     if (!!post_data) {
       post_data.innerHTML = post_details;
     }
+    document.getElementById('update_post').addEventListener('click', (e) => {
+      e.preventDefault();
+      p_title = document.getElementById('p_title').value;
+      p_author = document.getElementById('p_author').value;
+      p_content = document.getElementById('p_content').value;
+      EditPostByID({
+        id: post?.id,
+        title: p_title,
+        author: p_author,
+        content: p_content,
+      });
+    });
   }
 
+  async function EditPostByID(post_new_data) {
+    const post_by_id = await fetch(
+      `http://localhost:3000/update/${post_new_data?.id}`,
+      {
+        method: 'POST',
+        body: JSON.stringify(post_new_data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    if (!post_by_id.ok) {
+      throw new Error(`Failed to update post: ${post_by_id.status}`);
+    }
+    window.location.href = './index.html';
+  }
   async function PostById() {
     try {
       const urlParams = new URLSearchParams(window.location.search);

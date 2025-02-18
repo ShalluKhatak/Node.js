@@ -1,46 +1,47 @@
-document.addEventListener('DOMContentLoaded', () => {
-  async function fetch_url(url) {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Fetch data from a given URL
+  // alert('Home page');
+  async function fetchData(url) {
     try {
       const response = await fetch(url);
-      const data = await response.json();
-      return data;
+      if (!response.ok)
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      return await response.json();
     } catch (error) {
-      console.log('error :: ', error);
+      console.error('Fetch error:', error);
     }
   }
 
-  async function HomeUrl() {
-    try {
-      const url_test = fetch_url('http://localhost:3000/getpost')
-        .then((res) => {
-          let get_res = res;
-          if (Array.isArray(get_res) && get_res.length > 0) {
-            get_res.map((item) => {
-              ShowCards(item?.title, item?.content, item?.id);
-            });
-          }
-        })
-        .catch((err) => {
-          console.log('err : ', err);
-        });
-    } catch (error) {
-      console.log('error :: ', error);
+  // Fetch and display all posts
+  async function loadPosts() {
+    const posts = await fetchData('http://localhost:3000/getpost');
+
+    if (Array.isArray(posts) && posts.length > 0) {
+      renderPostCards(posts);
+    } else {
+      console.warn('No posts available.');
     }
   }
 
-  async function ShowCards(title, content, id) {
-    let post_list = document.getElementById('post-list');
-    if (post_list) {
-      const blog_card = `<div class="blog-card">
-            <div class="content">
-                <h3>${title}</h3>
-                <p>${content}</p>
-                <a href="post.html?id=${id}" class="read_more">Read More</a>
-            </div>
-        </div>`;
-      post_list.innerHTML += blog_card;
-    }
+  // Generate and display blog cards
+  function renderPostCards(posts) {
+    const postList = document.getElementById('post-list');
+    if (!postList) return;
+
+    postList.innerHTML = posts
+      .map(
+        (post) => `
+        <div class="blog-card">
+          <div class="content">
+            <h3>${post.title}</h3>
+            <p>${post.content}</p>
+            <a href="post.html?id=${post.id}" class="read_more">Read More</a>
+          </div>
+        </div>`,
+      )
+      .join('');
   }
 
-  HomeUrl();
+  // Initialize
+  loadPosts();
 });

@@ -33,5 +33,110 @@
     "author": "Michael Brown",
     "content": "Programming is a valuable skill in today's tech-driven world. Discover the benefits of learning to code.",
     "date": "2024-12-15"
+  },
+  {
+    "id": 6,
+    "title": "Mastering Python Basics",
+    "author": "Sophia Lee",
+    "content": "Python is a beginner-friendly language with vast applications. Learn the basics to kickstart your journey.",
+    "date": "2024-12-10"
+  },
+  {
+    "id": 7,
+    "title": "Debugging Like a Pro",
+    "author": "Chris Johnson",
+    "content": "Debugging is an essential skill for developers. Learn strategies to debug your code efficiently.",
+    "date": "2024-12-05"
+  },
+  {
+    "id": 8,
+    "title": "Introduction to TypeScript",
+    "author": "Robert Wilson",
+    "content": "TypeScript adds static typing to JavaScript, improving code quality and maintainability. Learn its benefits.",
+    "date": "2024-11-28"
+  },
+  {
+    "id": 9,
+    "title": "How to Use Git Effectively",
+    "author": "Jessica Green",
+    "content": "Version control is crucial in development. Learn how to use Git efficiently for your projects.",
+    "date": "2024-11-20"
+  },
+  {
+    "id": 10,
+    "title": "Django vs Flask: Which to Choose?",
+    "author": "Daniel Martin",
+    "content": "Django and Flask are popular Python web frameworks. This post compares their features to help you decide.",
+    "date": "2024-11-10"
+  },
+  {
+    "id": 11,
+    "title": "Getting Started with Vue.js",
+    "author": "Anna Patel",
+    "content": "Vue.js is a progressive JavaScript framework. Learn how to build interactive UIs with it.",
+    "date": "2024-11-01"
+  },
+  {
+    "id": 12,
+    "title": "REST API Best Practices",
+    "author": "Oliver Harris",
+    "content": "Building a robust REST API requires best practices. Discover key principles to follow.",
+    "date": "2024-10-25"
+  },
+  {
+    "id": 13,
+    "title": "Introduction to Machine Learning",
+    "author": "Sophia Miller",
+    "content": "Machine learning is transforming industries. Learn the basics and how it works.",
+    "date": "2024-10-15"
+  },
+  {
+    "id": 14,
+    "title": "Understanding Databases: SQL vs NoSQL",
+    "author": "Nathan Scott",
+    "content": "SQL and NoSQL databases have different use cases. Learn their differences and when to use each.",
+    "date": "2024-10-05"
+  },
+  {
+    "id": 15,
+    "title": "Cybersecurity Fundamentals",
+    "author": "Isabella Turner",
+    "content": "Security is critical in the digital world. Learn the fundamentals of cybersecurity to protect data.",
+    "date": "2024-09-25"
+  },
+  {
+    "id": 16,
+    "title": "Effective Code Reviews",
+    "author": "Benjamin White",
+    "content": "Code reviews improve code quality and collaboration. Learn best practices for effective reviews.",
+    "date": "2024-09-15"
+  },
+  {
+    "id": 17,
+    "title": "State Management in React",
+    "author": "Lucas Adams",
+    "content": "State management is crucial in React applications. Explore different approaches like Redux and Context API.",
+    "date": "2024-09-05"
+  },
+  {
+    "id": 18,
+    "title": "The Future of Web Development",
+    "author": "Emma Brooks",
+    "content": "Web development is constantly evolving. Discover upcoming trends and technologies shaping the future.",
+    "date": "2024-08-25"
+  },
+  {
+    "id": 19,
+    "title": "Building Scalable Web Apps",
+    "author": "Henry Carter",
+    "content": "Scalability is a key factor in modern web applications. Learn strategies to build scalable apps.",
+    "date": "2024-08-10"
+  },
+  {
+    "id": 20,
+    "title": "Functional Programming in JavaScript",
+    "author": "Lily Evans",
+    "content": "Functional programming enhances code readability and maintainability. Learn its core concepts in JavaScript.",
+    "date": "2024-08-01"
   }
 ]
