@@ -3,5 +3,6 @@ export const loginController = (req, res) => {
 };
 
 export const loginControllerPost = (req, res) => {
-  res.send('login Successful');
+  const data = req?.body;
+  res.send(data?.test_key);
 };
