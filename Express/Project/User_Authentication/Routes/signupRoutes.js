@@ -3,4 +3,4 @@ import { signupController } from '../Controller/signupController.js';
 
 export const signupRoutes = Router();
 
-signupRoutes.get('/', signupController);
+signupRoutes.post('/', signupController);
