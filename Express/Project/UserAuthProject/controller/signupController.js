@@ -13,7 +13,11 @@ export const signupController = (req, res) => {
 export const signupControllerPost = async (req, res) => {
   const { name, email, password } = req.body;
   if (
-    !(Boolean(name.trim()) && Boolean(email.trim()) && Boolean(password.trim()))
+    !(
+      Boolean(name?.trim()) &&
+      Boolean(email?.trim()) &&
+      Boolean(password?.trim())
+    )
   ) {
     return res.status(400).send('Something went wrong');
   }

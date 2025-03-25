@@ -10,8 +10,10 @@ export const loginController = (req, res) => {
 };
 
 export const loginControllerPost = async (req, res) => {
+  console.log('3333333 :>> ', 3333333);
   const { email, password } = req?.body;
-  if (!(Boolean(email.trim()) && Boolean(password.trim()))) {
+  console.log('req?.body :>> ', req?.body);
+  if (!(Boolean(email?.trim()) && Boolean(password?.trim()))) {
     return res.status(400).send('Something went wrong');
   }
   const [db_cont] = await DB_Connection.query(CHECK_USER_WITH_EMAIL, [email]);
@@ -25,7 +27,7 @@ export const loginControllerPost = async (req, res) => {
     name: user_name = ' ',
   } = db_cont[0];
 
-  const match = await bcrypt.compare(password, user_pass);
+  const match = await bcrypt.compare(password, user_password);
   if (match) {
     const token = jwt.sign(
       {
@@ -37,12 +39,19 @@ export const loginControllerPost = async (req, res) => {
         expiresIn: '1h',
       },
     );
+
+    console.log('token:>>', token);
     res.cookie('token', token, {
       httpOnly: true,
       secure: true,
       sameSite: 'Strict',
     });
-    res.send('Login');
+    // res.send('Login');
+
+    console.log('`dhgijskjg` :>> ', `dhgijskjg`);
+    res.status(200).json({
+      msg: 'login',
+    });
   } else {
     return res.status(400).send('Something went wrong');
   }

@@ -3,6 +3,7 @@ import {
   loginController,
   loginControllerPost,
 } from '../controller/loginController.js';
+import { loginMiddleware } from '../middleware/loginMiddleware.js';
 
 export const loginRoutes = router();
 

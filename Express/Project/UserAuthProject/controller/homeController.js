@@ -5,4 +5,7 @@ import { filePath } from '../util/utilFunctions.js';
 export const homeController = (req, res) => {
   const homeFilePath = filePath('view', 'home.html');
   res.sendFile(homeFilePath);
+
+  // const loginFilePath = filePath('view', 'login.html');
+  // res.sendFile(loginFilePath);
 };
